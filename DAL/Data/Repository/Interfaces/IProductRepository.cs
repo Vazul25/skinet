@@ -8,8 +8,10 @@ namespace DAL.Data.Repository.Interfaces
 {
     public interface IProductRepository
     {
-        Task<Product> GetProductByIdAsync(int id);
-        Task<IReadOnlyList<Product>> GetProducts();
+        public Task<Product> GetProductByIdAsync(int id);
+        public Task<IReadOnlyList<Product>> GetProducts();
+        public Task<IReadOnlyList<ProductBrand>> GetProductBrandsAsync();
+        public Task<IReadOnlyList<ProductType>> GetProductTypesAsync();
 
     }
 }

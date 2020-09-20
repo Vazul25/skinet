@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Helpers;
+using AutoMapper;
 using DAL;
 using DAL.Data.Repository;
 using DAL.Data.Repository.Interfaces;
+using DAL.SeedService;
+using DAL.SeedService.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,7 +39,10 @@ namespace API
             services.AddDbContext<StoreContext>(options =>
                 options.UseSqlServer(
                     _config.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
-            services.AddScoped<IProductRepository,ProductRepository>();
+            //services.AddScoped<IProductRepository,ProductRepository>();
+            services.AddScoped<ISeedService,SeedService>();
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddAutoMapper(typeof(MappingProfiles));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +56,7 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 
