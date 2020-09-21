@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Errors;
+using API.Extensions;
 using API.Helpers;
+using API.Middleware;
 using AutoMapper;
 using DAL;
 using DAL.Data.Repository;
@@ -40,26 +43,31 @@ namespace API
                 options.UseSqlServer(
                     _config.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
             //services.AddScoped<IProductRepository,ProductRepository>();
-            services.AddScoped<ISeedService,SeedService>();
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddApplicationServices();
+            services.AddSwaggerDocumentation();
             services.AddAutoMapper(typeof(MappingProfiles));
+            services.AddCors(o =>
+            {
+                o.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
 
+            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
             app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseStaticFiles();
-
+            app.UseCors("CorsPolicy");
             app.UseAuthorization();
-
+            app.UseSwaggerDocumentationMiddleware();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
