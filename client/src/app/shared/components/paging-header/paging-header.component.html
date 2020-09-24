@@ -1,0 +1,8 @@
+<header>
+  <span *ngIf="totalCount && totalCount !== 0">
+    Showing
+    <strong>{{ this.from }}-{{ this.to }} </strong>
+    of <strong>{{ this.totalCount }}</strong> Results
+  </span>
+  <span *ngIf="!totalCount || totalCount === 0"> There is no data </span>
+</header>
