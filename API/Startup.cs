@@ -21,6 +21,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace API
 {
@@ -50,7 +52,7 @@ namespace API
             {
                 o.AddPolicy("CorsPolicy", policy =>
                 {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+                    policy.WithOrigins("https://localhost:4200").AllowAnyHeader().AllowAnyMethod();
                 });
             });
         }
