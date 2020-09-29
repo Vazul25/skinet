@@ -1,0 +1,5 @@
+{
+    "prettier.jsxBracketSameLine": true,
+    "prettier.printWidth": 1800,
+    "editor.wordWrapColumn": 800
+}
