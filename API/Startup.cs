@@ -23,6 +23,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using StackExchange.Redis;
 
 namespace API
 {
@@ -45,6 +46,10 @@ namespace API
                 options.UseSqlServer(
                     _config.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
             //services.AddScoped<IProductRepository,ProductRepository>();
+            services.AddSingleton<IConnectionMultiplexer,ConnectionMultiplexer>(c => {
+                var config = ConfigurationOptions.Parse(_config.GetConnectionString("Redis"), true);
+                return ConnectionMultiplexer.Connect(config);
+            });
             services.AddApplicationServices();
             services.AddSwaggerDocumentation();
             services.AddAutoMapper(typeof(MappingProfiles));
@@ -55,6 +60,7 @@ namespace API
                     policy.WithOrigins("https://localhost:4200").AllowAnyHeader().AllowAnyMethod();
                 });
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

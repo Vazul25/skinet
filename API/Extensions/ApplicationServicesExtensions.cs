@@ -32,7 +32,7 @@ namespace API.Extensions
                     return new BadRequestObjectResult(errorResponse);
                 };
             });
-            
+            services.AddScoped<IBasketRepository, BasketRepository>();
             return services;
         }
     }
