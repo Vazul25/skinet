@@ -1,4 +1,4 @@
-﻿using DAL.SeedService.Interfaces;
+﻿using DAL.Services.SeedService.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models.Entities;

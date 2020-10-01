@@ -10,8 +10,9 @@ using AutoMapper;
 using DAL;
 using DAL.Data.Repository;
 using DAL.Data.Repository.Interfaces;
-using DAL.SeedService;
-using DAL.SeedService.Interfaces;
+using DAL.Identity;
+using DAL.Services.SeedService;
+using DAL.Services.SeedService.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,7 +34,7 @@ namespace API
 
         public Startup(IConfiguration config)
         {
-            
+
             _config = config;
         }
 
@@ -45,12 +46,19 @@ namespace API
             services.AddDbContext<StoreContext>(options =>
                 options.UseSqlServer(
                     _config.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
+            services.AddDbContext<AppIdentityDbContext>(options =>
+            {
+                options.UseSqlServer(
+                    _config.GetConnectionString("IdentityConnection")).EnableSensitiveDataLogging();
+            });
             //services.AddScoped<IProductRepository,ProductRepository>();
-            services.AddSingleton<IConnectionMultiplexer,ConnectionMultiplexer>(c => {
+            services.AddSingleton<IConnectionMultiplexer, ConnectionMultiplexer>(c =>
+            {
                 var config = ConfigurationOptions.Parse(_config.GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(config);
             });
             services.AddApplicationServices();
+            services.AddIdentityServices(_config);
             services.AddSwaggerDocumentation();
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddCors(o =>
@@ -60,7 +68,7 @@ namespace API
                     policy.WithOrigins("https://localhost:4200").AllowAnyHeader().AllowAnyMethod();
                 });
             });
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +82,7 @@ namespace API
             app.UseRouting();
             app.UseStaticFiles();
             app.UseCors("CorsPolicy");
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwaggerDocumentationMiddleware();
             app.UseEndpoints(endpoints =>

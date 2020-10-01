@@ -18,7 +18,7 @@ namespace DAL.Specifications
             Criteria = criteria;
         }
 
-        public Expression<Func<T, bool>> Criteria{get;}
+        public Expression<Func<T, bool>> Criteria { get; }
         public List<Expression<Func<T, object>>> Includes { get; } = new List<Expression<Func<T, object>>>();
 
         public Expression<Func<T, object>> OrderBy { get; private set; }
@@ -47,7 +47,7 @@ namespace DAL.Specifications
         {
             Skip = skip;
             Take = take;
-            IsPagingEnabled = true; 
+            IsPagingEnabled = true;
         }
     }
 }

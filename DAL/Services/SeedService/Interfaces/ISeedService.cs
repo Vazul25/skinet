@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.SeedService.Interfaces
+namespace DAL.Services.SeedService.Interfaces
 {
     public interface ISeedService
     {

@@ -1,8 +1,9 @@
 ﻿using API.Errors;
 using DAL.Data.Repository;
 using DAL.Data.Repository.Interfaces;
-using DAL.SeedService;
-using DAL.SeedService.Interfaces;
+using DAL.Identity;
+using DAL.Services.SeedService;
+using DAL.Services.SeedService.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;

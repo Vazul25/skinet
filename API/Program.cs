@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.HostDataExtension;
 using DAL;
+using DAL.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -16,9 +17,10 @@ namespace API
         public static async Task Main(string[] args)
         {
             Console.WriteLine("Hmm by witcher");
-            (await CreateHostBuilder(args)
+            (await (await CreateHostBuilder(args)
                 .Build()
                 .MigrateDatabase<StoreContext>())
+                .MigrateIdentityDatabase())
                 .Run();
         }
 
