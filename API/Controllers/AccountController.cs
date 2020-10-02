@@ -98,7 +98,7 @@ namespace API.Controllers
         {
             if (CheckEmailExistsAsync(registerDto.Email).Result.Value)
             {
-                return new BadRequestObjectResult(new ApiResponse(StatusCodes.Status400BadRequest, "Email already exists"));
+                return new BadRequestObjectResult(new ApiValidationErrorResponse { Errors = new[] { "Email already exists" } });
             }
             var user = new AppUser
             {
