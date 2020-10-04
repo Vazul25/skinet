@@ -1,4 +1,5 @@
 ﻿using Models.Entities;
+using Models.Entities.OrderAggregate;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,9 @@ namespace DAL.Services.SeedService.Interfaces
         IList<Product> Products { get; }
         IList<ProductBrand> ProductBrands { get; }
         IList<ProductType> ProductTypes { get; }
+
+        IList<DeliveryMethod> DeliveryMethods { get; }
+
         //Task SeedProductsAsync();
     }
 }

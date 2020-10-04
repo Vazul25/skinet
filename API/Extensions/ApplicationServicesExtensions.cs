@@ -1,7 +1,9 @@
 ﻿using API.Errors;
+using DAL.Data;
 using DAL.Data.Repository;
 using DAL.Data.Repository.Interfaces;
 using DAL.Identity;
+using DAL.Services.OrderService;
 using DAL.Services.SeedService;
 using DAL.Services.SeedService.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +20,10 @@ namespace API.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<ISeedService, SeedService>();
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = actionContext =>
@@ -33,7 +38,7 @@ namespace API.Extensions
                     return new BadRequestObjectResult(errorResponse);
                 };
             });
-            services.AddScoped<IBasketRepository, BasketRepository>();
+
             return services;
         }
     }

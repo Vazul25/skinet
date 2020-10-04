@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Models.Entities.Identity;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace DAL.Identity
         }
         public async Task SeedUsersAsync()
         {
-            if (!_userManager.Users.Any())
+            if (!await _userManager.Users.AnyAsync())
             {
                 var user = new AppUser
                 {
