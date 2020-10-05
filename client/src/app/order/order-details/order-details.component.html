@@ -1,0 +1,12 @@
+<div class="container mt-3">
+  <ng-container *ngIf="order">
+    <div class="row">
+      <div class="col-8">
+        <app-basket-summary [isBasket]="false" [basket]="createBasket()" [withType]="false"></app-basket-summary>
+      </div>
+      <div class="col-4">
+        <app-order-totals [basketTotal]="createBasketTotal()"></app-order-totals>
+      </div>
+    </div>
+  </ng-container>
+</div>

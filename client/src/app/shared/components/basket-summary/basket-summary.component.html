@@ -1,4 +1,4 @@
-<ng-container *ngIf="basket$ | async">
+<ng-container *ngIf="basket">
   <div class="table-responsive">
     <table class="table">
       <thead>
@@ -21,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of (basket$ | async).items">
+        <tr *ngFor="let item of basket.items">
           <th scope="row">
             <div class="p-2">
               <img
@@ -33,7 +33,9 @@
               <div class="ml-3 d-inline-block align-middle">
                 <h5 class="mb-0">
                   <a routerLink="/shop/{{ item.id }}" class="text-dark">{{ item.productName }}</a>
-                  <span class="text-muted font-weight-normal font-italic d-block">Type: {{ item.type }}</span>
+                  <span *ngIf="withType" class="text-muted font-weight-normal font-italic d-block"
+                    >Type: {{ item.type }}</span
+                  >
                 </h5>
               </div>
             </div>

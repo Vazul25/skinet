@@ -14,7 +14,12 @@ export class ProductDetailsComponent implements OnInit {
   product: IProduct;
   quantity: number = 1;
 
-  constructor(private shopService: ShopService, private activatedRoute: ActivatedRoute, private bcService: BreadcrumbService, private basketService: BasketService) {
+  constructor(
+    private shopService: ShopService,
+    private activatedRoute: ActivatedRoute,
+    private bcService: BreadcrumbService,
+    private basketService: BasketService,
+  ) {
     this.bcService.set('@productDetails', ' ');
   }
   ngOnInit(): void {
