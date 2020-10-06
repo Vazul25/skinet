@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL.Specifications
 {
-    class OrdersWithItemsAndOrderingSpecification : BaseSpecification<Order>
+    public class OrdersWithItemsAndOrderingSpecification : BaseSpecification<Order>
     {
         public OrdersWithItemsAndOrderingSpecification()
         {
