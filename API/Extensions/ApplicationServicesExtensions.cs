@@ -1,4 +1,5 @@
 ﻿using API.Errors;
+using Core.Interfaces;
 using DAL.Data;
 using DAL.Data.Repository;
 using DAL.Data.Repository.Interfaces;
@@ -6,6 +7,7 @@ using DAL.Identity;
 using DAL.Services.OrderService;
 using DAL.Services.SeedService;
 using DAL.Services.SeedService.Interfaces;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -24,6 +26,7 @@ namespace API.Extensions
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPaymentService, PaymentService>();
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = actionContext =>

@@ -11,15 +11,9 @@ export class ServerErrorComponent implements OnInit {
 
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
-    this.error =
-      navigation &&
-      navigation.extras &&
-      navigation.extras.state &&
-      navigation.extras.state.error;
+    this.error = navigation && navigation.extras && navigation.extras.state && navigation.extras.state.error;
     console.log(this.error);
   }
 
-  ngOnInit(): void {
-    console.log('asd');
-  }
+  ngOnInit(): void {}
 }
