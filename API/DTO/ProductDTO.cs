@@ -1,9 +1,9 @@
-﻿using Models.Entities;
+﻿using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Models.DTO
+namespace Core.DTO
 {
     public class ProductDTO
     {

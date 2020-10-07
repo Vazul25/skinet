@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Models.DTO
+namespace Core.DTO
 {
     public class PagedResult<T>
     {

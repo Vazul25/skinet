@@ -1,9 +1,9 @@
-﻿using Models.Entities.OrderAggregate;
+﻿using Core.Entities.OrderAggregate;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Models.DTO
+namespace Core.DTO
 {
     public class OrderToReturnDto
     {

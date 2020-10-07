@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
-using Models.Entities.Identity;
+using Core.Entities.Identity;
 using System.Threading.Tasks;
 
 namespace DAL.Identity

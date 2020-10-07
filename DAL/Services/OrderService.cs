@@ -1,9 +1,11 @@
-﻿using DAL.Data;
+﻿using Core.Interfaces;
+using Core.Specifications;
+using DAL.Data;
 using DAL.Data.Repository;
 using DAL.Data.Repository.Interfaces;
 using DAL.Specifications;
-using Models.Entities;
-using Models.Entities.OrderAggregate;
+using Core.Entities;
+using Core.Entities.OrderAggregate;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,13 +25,15 @@ namespace DAL.Services.OrderService
     {
         private readonly IBasketRepository _basketRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPaymentService _paymentService;
+
         //static int counter = 1;
         static BenchmarkResults[] _results = new BenchmarkResults[2] { new BenchmarkResults(), new BenchmarkResults() };
-        public OrderService(IBasketRepository basketRepository, IUnitOfWork unitOfWork)
+        public OrderService(IBasketRepository basketRepository, IUnitOfWork unitOfWork, IPaymentService paymentService)
         {
             _basketRepository = basketRepository;
             _unitOfWork = unitOfWork;
-
+            _paymentService = paymentService;
         }
 
         private async Task benchmark01(string buyerEmail, int deliveryMethodId, string basketId,
@@ -101,12 +105,20 @@ namespace DAL.Services.OrderService
 
             var subtotal = orderItems.Sum(i => i.Price * i.Quantity);
 
-            var order = new Order(orderItems, buyerEmail, shippingAddress, deliveryMethods, subtotal);
+            var spec = new OrderByPaymentIntentIdSpecification(basket.PaymentIntentId);
+            var existingOrder = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
+            if(existingOrder != null)
+            {
+                _unitOfWork.Repository<Order>().Delete(existingOrder);
+                await _paymentService.CreateOrUpdatePaymentIntent(basket.PaymentIntentId);
+            }
+
+            var order = new Order(orderItems, buyerEmail, shippingAddress, deliveryMethods, subtotal, basket.PaymentIntentId);
             _unitOfWork.Repository<Order>().Add(order);
             var result = await _unitOfWork.Complete();
             if (result <= 0)
                 return null;
-            await _basketRepository.DeleteBasketAsync(basketId);
+            //await _basketRepository.DeleteBasketAsync(basketId);
 
             return order;
           

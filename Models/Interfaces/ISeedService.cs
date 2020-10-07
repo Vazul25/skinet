@@ -1,5 +1,5 @@
-﻿using Models.Entities;
-using Models.Entities.OrderAggregate;
+﻿using Core.Entities;
+using Core.Entities.OrderAggregate;
 using System;
 using System.Collections.Generic;
 using System.Text;

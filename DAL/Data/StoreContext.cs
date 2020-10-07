@@ -1,8 +1,8 @@
 ﻿using DAL.EntityConfiguration;
 using DAL.Services.SeedService.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Models.Entities;
-using Models.Entities.OrderAggregate;
+using Core.Entities;
+using Core.Entities.OrderAggregate;
 using System;
 using System.Linq;
 using System.Net.Http.Headers;

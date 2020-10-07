@@ -6,8 +6,8 @@ using AutoMapper;
 using DAL.Data.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Models.DTO;
-using Models.Entities;
+using Core.DTO;
+using Core.Entities;
 
 namespace API.Controllers
 {

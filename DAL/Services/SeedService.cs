@@ -1,7 +1,7 @@
 ﻿using DAL.Data.Repository.Interfaces;
 using DAL.Services.SeedService.Interfaces;
-using Models.Entities;
-using Models.Entities.OrderAggregate;
+using Core.Entities;
+using Core.Entities.OrderAggregate;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

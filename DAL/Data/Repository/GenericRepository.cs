@@ -2,7 +2,7 @@
 using DAL.Specifications;
 using DAL.Specifications.Evaluator;
 using Microsoft.EntityFrameworkCore;
-using Models.Entities;
+using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

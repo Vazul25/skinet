@@ -1,4 +1,4 @@
-﻿namespace Models.Entities
+﻿namespace Core.Entities
 {
     public class ProductBrand : BaseEntity
     {

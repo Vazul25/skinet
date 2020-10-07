@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Models.Entities.OrderAggregate;
+using Core.Entities.OrderAggregate;
 using System;
 using System.Collections.Generic;
 using System.Text;

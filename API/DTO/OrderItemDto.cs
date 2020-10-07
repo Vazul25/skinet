@@ -1,4 +1,4 @@
-﻿namespace Models.DTO
+﻿namespace Core.DTO
 {
     public class OrderItemDto
     {

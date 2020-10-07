@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Models.Entities.Identity;
+using Core.Entities.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

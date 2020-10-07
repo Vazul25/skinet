@@ -1,6 +1,6 @@
 ﻿using DAL.Data.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Models.Entities;
+using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

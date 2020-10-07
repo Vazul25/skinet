@@ -1,7 +1,7 @@
 ﻿using DAL.Services.SeedService.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Models.Entities;
+using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

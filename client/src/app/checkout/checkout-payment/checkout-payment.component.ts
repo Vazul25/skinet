@@ -13,32 +13,26 @@ declare var Stripe;
   styleUrls: ['./checkout-payment.component.scss'],
 })
 export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
-  // #region Properties (10)
-  @Input() public checkoutForm: FormGroup;
-  public stripe: any;
+  public cardCvcValid = false;
   public cardCvc: any;
-  public cardNumber: any;
-  public cardExpiry: any;
-  @ViewChild('cardExpiry', { static: true }) public cardExpiryElement: ElementRef;
-  @ViewChild('cardNumber', { static: true }) public cardNumberElement: ElementRef;
   @ViewChild('cardCvc', { static: true }) public cardCvcElement: ElementRef;
   public cardErrors: any;
+  public cardExpiryValid = false;
+  public cardExpiry: any;
+  @ViewChild('cardExpiry', { static: true }) public cardExpiryElement: ElementRef;
   public cardHandler = this.onChange.bind(this);
-
-  // #endregion Properties (10)
-
-  // #region Constructors (1)
-
+  public cardNumberValid = false;
+  public cardNumber: any;
+  @ViewChild('cardNumber', { static: true }) public cardNumberElement: ElementRef;
+  @Input() public checkoutForm: FormGroup;
+  public stripe: any;
+  loading = false;
   constructor(
     private basketService: BasketService,
     private checkoutService: CheckoutService,
     private toastr: ToastrService,
     private router: Router,
   ) {}
-
-  // #endregion Constructors (1)
-
-  // #region Public Methods (3)
 
   public ngAfterViewInit(): void {
     this.stripe = Stripe(
@@ -48,6 +42,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     this.cardNumber = elements.create('cardNumber');
     this.cardNumber.mount(this.cardNumberElement.nativeElement);
     this.cardNumber.addEventListener('change', this.cardHandler);
+
     this.cardExpiry = elements.create('cardExpiry');
     this.cardExpiry.mount(this.cardExpiryElement.nativeElement);
     this.cardExpiry.addEventListener('change', this.cardHandler);
@@ -62,35 +57,62 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     this.cardExpiry.destroy();
     this.cardCvc.destroy();
   }
-  onChange({ error }) {
-    if (error) {
-      this.cardErrors = error.message;
+
+  public onChange(event) {
+    if (event.error) {
+      this.cardErrors = event.error.message;
     } else {
       this.cardErrors = null;
     }
+    switch (event.elementType) {
+      case 'cardNumber':
+        this.cardNumberValid = event.complete;
+        break;
+      case 'cardExpiry':
+        this.cardExpiryValid = event.complete;
+        break;
+      case 'cardCvc':
+        this.cardCvcValid = event.complete;
+        break;
+    }
   }
 
-  public submitOrder(): void {
+  public async submitOrder() {
     const basket = this.basketService.getCurrentBasketValue();
-    const orderToCreate = this.getOrderToCreate(basket);
-    this.checkoutService.createOrder(orderToCreate).subscribe(
-      (order: IOrder) => {
-        this.toastr.success('Order created successfully!');
-        this.basketService.deleteBasketLocally(basket.id);
-        console.log(order);
-        const navigationExtras: NavigationExtras = { state: order };
+    this.loading = true;
+    try {
+      const createdOrder = await this.createOrder(basket);
+      const paymentResult = await this.confirmPaymentWithStripe(basket);
+
+      if (paymentResult.paymentIntent) {
+        this.basketService.deleteBasket(basket);
+        const navigationExtras: NavigationExtras = { state: createdOrder };
         this.router.navigate(['checkout/success'], navigationExtras);
-      },
-      (error) => {
-        this.toastr.error(error.message);
-        console.error(error);
-      },
-    );
+      } else {
+        this.toastr.error(paymentResult.error.message);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.loading = false;
+    }
   }
 
-  // #endregion Public Methods (3)
+  private confirmPaymentWithStripe(basket) {
+    return this.stripe.confirmCardPayment(basket.clientSecret, {
+      payment_method: {
+        card: this.cardNumber,
+        billing_details: {
+          name: this.checkoutForm.get('paymentForm').get('nameOnCard').value,
+        },
+      },
+    });
+  }
 
-  // #region Private Methods (1)
+  private createOrder(basket: IBasket) {
+    const orderToCreate = this.getOrderToCreate(basket);
+    return this.checkoutService.createOrder(orderToCreate).toPromise();
+  }
 
   private getOrderToCreate(basket: IBasket): IOrderToCreate {
     return {
@@ -99,6 +121,4 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
       shipToAddress: this.checkoutForm.get('addressForm').value,
     };
   }
-
-  // #endregion Private Methods (1)
 }

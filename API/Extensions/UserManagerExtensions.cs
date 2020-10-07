@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Models.Entities.Identity;
+using Core.Entities.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

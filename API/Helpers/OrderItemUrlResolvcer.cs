@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Configuration;
-using Models.DTO;
-using Models.Entities.OrderAggregate;
+using Core.DTO;
+using Core.Entities.OrderAggregate;
 using System;
 using System.Collections.Generic;
 using System.Linq;

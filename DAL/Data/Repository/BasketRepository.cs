@@ -1,5 +1,5 @@
 ﻿using DAL.Data.Repository.Interfaces;
-using Models.Entities;
+using Core.Entities;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
