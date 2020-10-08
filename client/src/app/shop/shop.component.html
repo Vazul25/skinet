@@ -4,19 +4,31 @@
       <ng-container *ngIf="types && brands">
         <h5 class="text-warning my-3 ml-3 font-weight-bold">Sort</h5>
         <select class="custom-select my-3" (change)="onSortSelected($event.target.value)">
-          <option *ngFor="let sort of sortOptions" [value]="sort.value">
+          <option *ngFor="let sort of sortOptions" [value]="sort.value" [selected]="shopParams.sort === sort.value">
             {{ sort.name }}
           </option>
         </select>
         <h5 class="text-warning my-3 ml-3 font-weight-bold">Brands</h5>
         <ul class="list-group">
-          <li class="list-group-item" *ngFor="let brand of brands" [class.active]="brand.id === this.shopParams.brandId" [value]="brand.id" (click)="onBrandSelected(brand.id)">
+          <li
+            class="list-group-item"
+            *ngFor="let brand of brands"
+            [class.active]="brand.id === this.shopParams.brandId"
+            [value]="brand.id"
+            (click)="onBrandSelected(brand.id)"
+          >
             {{ brand.name }}
           </li>
         </ul>
         <h5 class="text-warning my-3 ml-3 font-weight-bold">Types</h5>
         <ul class="list-group">
-          <li class="list-group-item" *ngFor="let type of types" [class.active]="type.id === this.shopParams.typeId" [value]="type.id" (click)="onTypeSelected(type.id)">
+          <li
+            class="list-group-item"
+            *ngFor="let type of types"
+            [class.active]="type.id === this.shopParams.typeId"
+            [value]="type.id"
+            (click)="onTypeSelected(type.id)"
+          >
             {{ type.name }}
           </li>
         </ul>
@@ -24,9 +36,20 @@
     </section>
     <section class="col-9">
       <div class="d-flex justify-content-between align-items-center pb-2">
-        <app-paging-header [to]="this.getResultTo()" [totalCount]="this.totalCount" [from]="this.getResultFrom()"></app-paging-header>
+        <app-paging-header
+          [to]="this.getResultTo()"
+          [totalCount]="this.totalCount"
+          [from]="this.getResultFrom()"
+        ></app-paging-header>
         <div class="form-inline" *ngIf="products">
-          <input class="form-control mr-2" style="width: 300px" placeholder="Search" type="text" #search (keyup.enter)="onSearch()" />
+          <input
+            class="form-control mr-2"
+            style="width: 300px"
+            placeholder="Search"
+            type="text"
+            #search
+            (keyup.enter)="onSearch()"
+          />
           <button class="btn btn-outline-primary my-2" (click)="onSearch()">Search</button>
           <button class="btn btn-outline-primary my-2" (click)="onReset()">Reset</button>
         </div>
@@ -37,7 +60,12 @@
         </div>
       </div>
       <div class="d-flex justify-content-center">
-        <app-pager [pageSize]="shopParams.pageSize" [totalCount]="totalCount" (pageChanged)="onPageChanged($event)"></app-pager>
+        <app-pager
+          [pageNumber]="shopParams.pageNumber"
+          [pageSize]="shopParams.pageSize"
+          [totalCount]="totalCount"
+          (pageChanged)="onPageChanged($event)"
+        ></app-pager>
       </div>
     </section>
   </div>

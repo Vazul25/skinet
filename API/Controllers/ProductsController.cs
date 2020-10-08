@@ -15,7 +15,7 @@ using System.Net;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-
+using API.Helpers;
 
 namespace API.Controllers
 {
@@ -36,7 +36,7 @@ namespace API.Controllers
             _typeRepo = typeRepo;
             _mapper = mapper;
         }
-
+        [Cached(600)]
         [HttpGet]
         public async Task<ActionResult<PagedResult<ProductDTO>>> GetProducts([FromQuery] ProductSpecParams specParams)
         {
@@ -49,7 +49,7 @@ namespace API.Controllers
             return Ok(new PagedResult<ProductDTO>(specParams.PageIndex,specParams.PageSize,totalItems,data));
 
         }
-
+        [Cached(600)]
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status404NotFound)]
@@ -61,6 +61,7 @@ namespace API.Controllers
             return Ok(_mapper.Map<Product, ProductDTO>(product)) ;
         }
 
+        [Cached(600)]
         [HttpGet("brands")]
         public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
         {
@@ -68,6 +69,7 @@ namespace API.Controllers
             return Ok(productBrands);
         }
 
+        [Cached(600)]
         [HttpGet("types")]
         public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductTypes()
         {
