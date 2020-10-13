@@ -8,12 +8,13 @@ import { map, tap } from 'rxjs/operators';
 import { ShopParams } from '../shared/models/shopParams';
 import { IProduct } from '../shared/models/product';
 import { Action } from 'rxjs/internal/scheduler/Action';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShopService {
-  public baseUrl = 'https://localhost:5001/api/';
+  public baseUrl = environment.apiUrl;
   public brands: IBrand[] = [];
   public pagination = new Pagination();
 

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Content\**" CopyToPublishDirectory="PreserveNewest"></Content>
     <ProjectReference Include="..\DAL\Infrastructure.csproj" />
   </ItemGroup>
 

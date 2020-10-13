@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Order = Core.Entities.OrderAggregate.Order;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace API.Controllers
 {
@@ -19,11 +20,14 @@ namespace API.Controllers
     {
         private readonly IPaymentService _paymentService;
         private readonly ILogger<IPaymentService> _logger;
-        private const string WhSecret = "whsec_9i5grV7n7Mo5ECkE1MIc0YbyYIYo3XJl";
-        public PaymentsController(IPaymentService paymentService, ILogger<IPaymentService> logger)
+        private readonly IConfiguration _config;
+        private readonly string _whSecret;
+        public PaymentsController(IPaymentService paymentService, ILogger<IPaymentService> logger, Microsoft.Extensions.Configuration.IConfiguration config)
         {
             _paymentService = paymentService;
             _logger = logger;
+            _config = config;
+            _whSecret= _config.GetSection("StripeSettings:WhSecret").Value; 
         }
 
         [Authorize]
@@ -40,7 +44,7 @@ namespace API.Controllers
         public async Task<ActionResult> StripeWebhook()
         {
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-            var stripeEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], WhSecret);
+            var stripeEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], _whSecret);
             PaymentIntent intent;
             Order order;
             switch (stripeEvent.Type)
