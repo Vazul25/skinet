@@ -7,9 +7,9 @@ using System.Text;
 
 namespace DAL.Specifications.Evaluator
 {
-    public class SpecificationEvaluator<TEntity> where TEntity : BaseEntity
+    public static class SpecificationEvaluator<TEntity> where TEntity : BaseEntity
     {
-        public bool Test(IEnumerable<TEntity> inputList, ISpecification<TEntity> spec)
+        public static bool Test(IEnumerable<TEntity> inputList, ISpecification<TEntity> spec)
         {
             IEnumerable<TEntity> inputListMutated = inputList.ToList();
              if (spec.Criteria != null)

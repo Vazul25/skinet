@@ -1,0 +1,12 @@
+# Claim persistent storage from a persistent volume with matching storage class, access mode and space.
+# Here, I leave out the storage class which means it will the default one.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: skinet-sql-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi 

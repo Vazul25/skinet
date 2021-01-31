@@ -18,6 +18,7 @@ namespace API.HostDataExtension
         {
             using(var scope = host.Services.CreateScope())
             {
+                var asd = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
                 var serviceProvider = scope.ServiceProvider;
                 var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
                 try

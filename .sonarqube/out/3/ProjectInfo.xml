@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <ProjectName>Skinet.IntegrationTests</ProjectName>
+  <ProjectLanguage>C#</ProjectLanguage>
+  <ProjectType>Test</ProjectType>
+  <ProjectGuid>5bb7fd82-51c1-42d2-9652-fd0edb1b33d2</ProjectGuid>
+  <FullPath>C:\programozas\udemy\skinet\Skinet.IntegrationTests\Skinet.IntegrationTests.csproj</FullPath>
+  <IsExcluded>false</IsExcluded>
+  <AnalysisResults>
+    <AnalysisResult Id="FilesToAnalyze" Location="C:\programozas\udemy\skinet\.sonarqube\out\3\FilesToAnalyze.txt" />
+  </AnalysisResults>
+  <AnalysisSettings>
+    <Property Name="sonar.cs.roslyn.reportFilePath">C:\programozas\udemy\skinet\Skinet.IntegrationTests\bin\Debug\netcoreapp3.1\Skinet.IntegrationTests.dll.RoslynCA.json|C:\programozas\udemy\skinet\Skinet.IntegrationTests\bin\Debug\netcoreapp3.1\Skinet.IntegrationTests.dll.RoslynCA.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPath">C:\programozas\udemy\skinet\.sonarqube\out\3</Property>
+  </AnalysisSettings>
+  <Configuration>Debug</Configuration>
+  <Platform>AnyCPU</Platform>
+  <TargetFramework>netcoreapp3.1</TargetFramework>
+</ProjectInfo>

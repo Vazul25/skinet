@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using API.Errors;
 using API.Extensions;
@@ -80,12 +81,11 @@ namespace API
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
             app.UseHttpsRedirection();
-
             app.UseRouting();
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider=new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"Content")),
+                FileProvider=new PhysicalFileProvider(Path.Combine( Directory.GetCurrentDirectory(),"Content")),
                 RequestPath="/content"
 
             });

@@ -1,0 +1,39 @@
+version: '3'
+networks:
+  container-net:
+volumes:
+  mssql:
+services:
+  sql:
+    image: "mcr.microsoft.com/mssql/server:2017-latest"
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Passw0rd!
+    hostname: sql1
+    networks:
+      container-net:
+        aliases:
+          - sql1
+    volumes:
+      - type: volume
+        source: mssql
+        target: /var/opt/mssql
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DOTNET_ENVIRONMENT=Docker
+    ports:
+      - "5000:80"
+    networks:
+      container-net:
+  redis:
+    image: "redis:alpine"    
+    hostname: redis
+    networks:
+      container-net:
+        aliases:
+          - redis

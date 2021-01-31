@@ -18,6 +18,7 @@ namespace DAL.EntityConfiguration
         }
         public void Configure(EntityTypeBuilder<ProductBrand> builder)
         {
+            Console.WriteLine(Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT"));
             builder.HasData(_seedService.ProductBrands);
         }
     }

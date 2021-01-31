@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <ProjectName>Infrastructure</ProjectName>
+  <ProjectLanguage>C#</ProjectLanguage>
+  <ProjectType>Product</ProjectType>
+  <ProjectGuid>c481d906-bc42-4b16-9498-3ab024d88eb6</ProjectGuid>
+  <FullPath>C:\programozas\udemy\skinet\DAL\Infrastructure.csproj</FullPath>
+  <IsExcluded>false</IsExcluded>
+  <AnalysisResults>
+    <AnalysisResult Id="FilesToAnalyze" Location="C:\programozas\udemy\skinet\.sonarqube\out\1\FilesToAnalyze.txt" />
+  </AnalysisResults>
+  <AnalysisSettings>
+    <Property Name="sonar.cs.roslyn.reportFilePath">C:\programozas\udemy\skinet\DAL\bin\Debug\netcoreapp3.1\Infrastructure.dll.RoslynCA.json|C:\programozas\udemy\skinet\DAL\bin\Debug\netcoreapp3.1\Infrastructure.dll.RoslynCA.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPath">C:\programozas\udemy\skinet\.sonarqube\out\1</Property>
+  </AnalysisSettings>
+  <Configuration>Debug</Configuration>
+  <Platform>AnyCPU</Platform>
+  <TargetFramework>netcoreapp3.1</TargetFramework>
+</ProjectInfo>

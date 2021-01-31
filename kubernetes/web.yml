@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skinet-web
+  labels:
+    app: skinet
+    tier: web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: skinet
+      tier: web
+  template:
+    metadata:
+      labels:
+        app: skinet
+        tier: web
+    spec:
+      containers:
+      - name: skinet-web
+        image: skinet-web:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: skinet-web
+spec:
+  type: LoadBalancer
+  selector:
+    app: skinet
+    tier: web
+  ports:
+  - name: http
+    port: 5000
+    targetPort: 80

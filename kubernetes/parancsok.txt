@@ -1,0 +1,12 @@
+kubectl delete -f sql.yml
+kubectl get pods
+kubectl delete pod
+kubectl apply -f web.yml  
+minikube service skinet-web --url 
+minikube docker-env
+docker build --tag skinet-web .
+minikube service sql1 --url
+kubectl apply -f sql-service.yml
+kubectl get deployments
+kubectl create secret generic mssql --from-literal=SA_PASSWORD="Passw0rd!"
+kubectl apply -f sql.yml
